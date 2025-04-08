@@ -79,7 +79,7 @@ export const deletePost = async (req: Request, res: Response): Promise<any> => {
             return res.status(404).json({ error: "Post no encontrado" });
         }
         await post.remove();
-        return res.status(200).json({ message: "Post eliminado correctamente" });
+        return res.status(200).json({ message: "Post eliminado correctamente", postId:id });
     } catch (error) {
         console.error("Error al eliminar post:", error);
         return res.status(500).json({ error: "Error al eliminar el post" });
