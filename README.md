@@ -11,14 +11,14 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 - [PostgreSQL](https://www.postgresql.org/)
 - [Node.js](https://nodejs.org/) versión 18.20.3
 
-También debes crear un archivo `.env` en la raíz del proyecto con las siguientes variables de entorno:
+Para que la aplicación funcione correctamente, necesitas configurar algunas variables de entorno. En la raíz del proyecto, crea un archivo llamado .env (si no lo tienes ya) y agrega las siguientes variables de entorno:
 
 ```env
-DB_HOST=localhost
-DB_PORT=5432
-DB_USERNAME=tu_usuario
-DB_PASSWORD=tu_contraseña
-DB_DATABASE=posts
+DB_HOST=localhost               # Dirección del servidor de base de datos
+DB_PORT=5432                    # Puerto de la base de datos (por defecto 5432)
+DB_USERNAME=tu_usuario          # Nombre de usuario para la base de datos
+DB_PASSWORD=tu_contraseña       # Contraseña para el usuario de la base de datos
+DB_DATABASE=posts               # Nombre de la base de datos que utilizará la aplicación
 PORT=3000
 ```
 
@@ -90,19 +90,33 @@ Esta API está pensada para ser utilizada junto al frontend:
 
 ## Rutas de la API 📡
 
+Si necesitas más detalles y documentación sobre las rutas, puedes acceder a la interfaz de Swagger en la siguiente URL:
+
+**Documentación de la API (Swagger): `/api-docs`**
+
+Ahí encontrarás una descripción más detallada de las rutas, los parámetros de entrada y las respuestas esperadas. La documentación está actualizada y es interactiva, lo que te permitirá probar las rutas directamente desde el navegador.
+
 | Método | Ruta           | Descripción                       |
 |--------|----------------|-----------------------------------|
+| GET    | `/api-docs`    | Documentación interactiva Swagger |
 | POST   | `/posts`       | Crear un nuevo post               |
 | GET    | `/posts`       | Obtener todos los posts           |
 | GET    | `/posts/:id`   | Obtener un post por ID            |
 | PUT    | `/posts/:id`   | Actualizar un post por ID         |
 | DELETE | `/posts/:id`   | Eliminar un post por ID           |
 
+
 > Todas las rutas aceptan y responden con JSON.
 
 ## Despliegue 🌐
 
-🔗 [https://api-post-7xoj.onrender.com](https://api-post-7xoj.onrender.com)
+Accede a la API desplegada en la siguiente URL:
+
+🔗 [API Principal](https://api-post-7xoj.onrender.com)
+
+Y para la documentación interactiva de la API:
+
+🔗 [Documentación de la API (Swagger)](https://api-post-7xoj.onrender.com/api-docs)
 
 
 ## Autores ✒️
