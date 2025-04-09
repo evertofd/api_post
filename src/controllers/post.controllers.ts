@@ -35,8 +35,8 @@ export const getPosts = async (req: Request, res: Response) => {
 
 export const getPost = async (req: Request, res: Response) => {
     try {
-        const {id} = req.params
-        const post = await Post.findOneBy({id:parseInt(id)});
+        const { id } = req.params
+        const post = await Post.findOneBy({ id: parseInt(id) });
         res.status(200).json(post);
     } catch (error) {
         console.error("Error al obtener el post:", error);
@@ -58,7 +58,7 @@ export const updatePost = async (req: Request, res: Response): Promise<any> => {
 
         post.name = name ?? post.name;
         post.description = description ?? post.description;
-        
+
         await post.save();
 
         return res.status(200).json({ message: "Post actualizado", post });
@@ -72,14 +72,13 @@ export const updatePost = async (req: Request, res: Response): Promise<any> => {
 export const deletePost = async (req: Request, res: Response): Promise<any> => {
     try {
         const { id } = req.params;
-
         const post = await Post.findOneBy({ id: parseInt(id) });
-
+        const deletedPost = { ...post };
         if (!post) {
             return res.status(404).json({ error: "Post no encontrado" });
         }
         await post.remove();
-        return res.status(200).json({ message: "Post eliminado correctamente", postId:id });
+        return res.status(200).json({ message: "Post eliminado correctamente", post: deletedPost });
     } catch (error) {
         console.error("Error al eliminar post:", error);
         return res.status(500).json({ error: "Error al eliminar el post" });
