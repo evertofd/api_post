@@ -7,7 +7,10 @@
     "dev": "ts-node-dev --respawn src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d src/db/db.ts",
+    "migration:run": "npx typeorm-ts-node-commonjs migration:run -d src/db/db.ts",
+    "db:init": "ts-node src/db/init.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +28,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/morgan": "^1.9.9",
+    "@types/pg": "^8.11.11",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   }

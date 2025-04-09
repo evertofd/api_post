@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import { Post } from "./entities/Post";
+import { Post } from "../entities/Post";
 import * as dotenv from "dotenv";
 
 dotenv.config();
