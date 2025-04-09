@@ -41,22 +41,53 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __importDefault(require("./app"));
-const db_1 = require("./db/db");
+const pg_1 = require("pg");
+const child_process_1 = require("child_process");
 const dotenv = __importStar(require("dotenv"));
+const util_1 = require("util");
 dotenv.config();
-const main = () => __awaiter(void 0, void 0, void 0, function* () {
+const execPromise = (0, util_1.promisify)(child_process_1.exec);
+/**
+* @Everto Farias
+* @description: Creamos una instancia para conectarnos a la base de datos de postgres para crear la base de datos si no existe.
+* Luego verificamos si la base de datos existe y si no existe la creamos.
+* Ejecutamos las migraciones pendientes para poder usar la aplicacion.
+* @TODO: EN CASO DE LA QUE CONEXION A POSTGRES FALLE SE DEBERA INGRESAR MANUAL AL MOTOR DE POSTGRESQL Y EJECUTAR
+* CREATE DATABASE posts;
+* y Luego correr las migraciones por separado con el comando run migration
+*/
+const initDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
+    const client = new pg_1.Client({
+        host: process.env.DB_HOST,
+        port: 5432,
+        user: process.env.DB_USERNAME,
+        password: process.env.DB_PASSWORD,
+        database: 'postgres'
+    });
     try {
-        yield db_1.AppDataSource.initialize();
-        console.log("Database Connected");
-        app_1.default.listen(process.env.PORT, () => console.log(`Corriendo en el puerto ${process.env.PORT}`));
+        yield client.connect();
+        const res = yield client.query(`SELECT 1 FROM pg_database WHERE datname = '${process.env.DB_DATABASE}'`);
+        if (res.rowCount === 0) {
+            console.log(`Creando base de datos ${process.env.DB_DATABASE}...`);
+            yield client.query(`CREATE DATABASE ${process.env.DB_DATABASE}`);
+            console.log('Base de datos creada con éxito');
+        }
+        else {
+            console.log(`La base de datos ${process.env.DB_DATABASE} ya existe`);
+        }
+        console.log('Ejecutando migraciones...');
+        const { stdout, stderr } = yield execPromise('npm run migration:run');
+        if (stderr) {
+            console.error(`Error de migraciones: ${stderr}`);
+        }
+        console.log(`Migraciones ejecutadas: ${stdout}`);
     }
-    catch (error) {
-        console.log(error);
+    catch (err) {
+        console.error('Error:', err);
+    }
+    finally {
+        yield client.end();
     }
 });
-main();
+initDatabase();

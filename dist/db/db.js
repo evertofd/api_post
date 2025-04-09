@@ -35,11 +35,17 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppDataSource = void 0;
 const typeorm_1 = require("typeorm");
-const Post_1 = require("./entities/Post");
+const Post_1 = require("../entities/Post");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const isProd = process.env.NODE_ENV === "production";
 const baseFolder = isProd ? "dist" : "src";
+/**
+* @Everto Farias
+* @description: Configuración de la conexión a la base de datos PostgreSQL mediante TypeORM. Detecta el entorno actual (producción o desarrollo) a través de la variable NODE_ENV para determinar la estructura de carpetas correcta después del proceso de build de producción.
+* @param: Variables de entorno para datos de conexión (host, usuario, contraseña, nombre de BD)
+* @return: Objeto AppDataSource que establece la conexión con la base de datos y gestiona entidades
+*/
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "postgres",
     host: process.env.DB_HOST,

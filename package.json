@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn src/index.ts",
+    "dev": "NODE_ENV=development ts-node-dev --respawn src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "NODE_ENV=production node dist/index.js",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d src/db/db.ts",
     "migration:run": "npx typeorm-ts-node-commonjs migration:run -d src/db/db.ts",
