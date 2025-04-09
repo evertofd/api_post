@@ -1,6 +1,13 @@
 import { Request, Response } from "express";
 import { Post } from "../entities/Post";
 
+/**
+* @Everto Farias
+* @description: Método que crea un nuevo post con un nombre y descripción
+* @param: req (objeto de solicitud con name y description en el body), res (objeto de respuesta)
+* @return: JSON con mensaje de éxito y el post creado, o un error si falta información
+*/
+
 export const createPost = async (req: Request, res: Response): Promise<any> => {
     try {
         const { name, description } = req.body;
@@ -21,6 +28,12 @@ export const createPost = async (req: Request, res: Response): Promise<any> => {
     }
 };
 
+/**
+* @Everto Farias
+* @description: Método que obtiene todos los posts.
+* @param: req (objeto de solicitud), res (objeto de respuesta)
+* @return: JSON con array de todos los posts, o un error si hay problemas en la consulta
+*/
 
 export const getPosts = async (req: Request, res: Response) => {
     try {
@@ -32,6 +45,12 @@ export const getPosts = async (req: Request, res: Response) => {
     }
 };
 
+/**
+* @Everto Farias
+* @description: Método que busca y obtiene un post específico según su ID
+* @param: req (objeto de solicitud con id en params), res (objeto de respuesta)
+* @return: JSON con los datos del post encontrado, o un error si no existe
+*/
 
 export const getPost = async (req: Request, res: Response) => {
     try {
@@ -44,6 +63,13 @@ export const getPost = async (req: Request, res: Response) => {
     }
 };
 
+/**
+ * @Everto Farias
+ * @description: Método que actualiza la información de un post existente según su ID
+ * @param: req (objeto de solicitud con id en params y name/description en body), res (objeto de respuesta)
+ * @return: JSON con mensaje de confirmación y el post modificado, o un error si no se encuentra
+ *
+*/
 
 export const updatePost = async (req: Request, res: Response): Promise<any> => {
     try {
@@ -68,6 +94,12 @@ export const updatePost = async (req: Request, res: Response): Promise<any> => {
     }
 };
 
+/**
+* @Everto Farias
+* @description: Método que elimina permanentemente un post específico de la base de datos según su ID
+* @param: req (objeto de solicitud con id en params), res (objeto de respuesta)
+* @return: JSON con mensaje de confirmación y datos del post eliminado, o un error si no existe
+*/
 
 export const deletePost = async (req: Request, res: Response): Promise<any> => {
     try {

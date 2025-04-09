@@ -3,6 +3,10 @@ import { createPost, getPosts, updatePost, deletePost, getPost } from "../contro
 
 const router = Router();
 
+/**
+* @Everto Farias
+* @description: Rutas de los posts
+*/
 router.post('/posts', createPost);
 router.get('/posts', getPosts);
 router.get('/posts/:id', getPost);

@@ -1,11 +1,14 @@
 import app from "./app"
 import { AppDataSource } from "./db"
+import * as dotenv from "dotenv";
+
+dotenv.config();
 
 const main = async () => {
     try {
         await AppDataSource.initialize()
-        console.log("Database connected")
-        app.listen(process.env.PORT, () => console.log("En el puerto 3000"))
+        console.log("Database Connected")
+        app.listen(process.env.PORT, () => console.log(`Corriendo en el puerto ${process.env.PORT}`))
     } catch (error) {
         console.log(error)
     }
