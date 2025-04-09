@@ -57,4 +57,10 @@ exports.AppDataSource = new typeorm_1.DataSource({
     migrations: [`${baseFolder}/migrations/*.{ts,js}`],
     migrationsTableName: "migrations_history",
     synchronize: false,
+    ssl: true,
+    extra: {
+        ssl: {
+            rejectUnauthorized: false
+        }
+    }
 });
